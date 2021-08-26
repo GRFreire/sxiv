@@ -38,6 +38,7 @@ Dependencies
 sxiv requires the following software to be installed:
 
   * Imlib2
+  * libwebp
   * librsvg
   * cairo
   * X11
