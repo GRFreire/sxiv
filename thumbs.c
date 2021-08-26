@@ -35,6 +35,7 @@ void exif_auto_orientate(const fileinfo_t*);
 Imlib_Image img_open(const fileinfo_t*);
 
 static char *cache_dir;
+extern const int fileidx;
 
 char* tns_cache_filepath(const char *filepath)
 {
@@ -79,7 +80,7 @@ void tns_cache_write(Imlib_Image im, const char *filepath, bool force)
 	char *cfile, *dirend;
 	struct stat cstats, fstats;
 	struct utimbuf times;
-	Imlib_Load_Error err = 0;
+	Imlib_Load_Error err;
 
 	if (options->private_mode)
 		return;
@@ -93,26 +94,27 @@ void tns_cache_write(Imlib_Image im, const char *filepath, bool force)
 		{
 			if ((dirend = strrchr(cfile, '/')) != NULL) {
 				*dirend = '\0';
-				if ((err = r_mkdir(cfile)) == -1)
+				if (r_mkdir(cfile) == -1) {
 					error(0, errno, "%s", cfile);
+					goto end;
+				}
 				*dirend = '/';
 			}
-			if (err == 0) {
-				imlib_context_set_image(im);
-				if (imlib_image_has_alpha()) {
-					imlib_image_set_format("png");
-				} else {
-					imlib_image_set_format("jpg");
-					imlib_image_attach_data_value("quality", NULL, 90, NULL);
-				}
-				imlib_save_image_with_error_return(cfile, &err);
+			imlib_context_set_image(im);
+			if (imlib_image_has_alpha()) {
+				imlib_image_set_format("png");
+			} else {
+				imlib_image_set_format("jpg");
+				imlib_image_attach_data_value("quality", NULL, 90, NULL);
 			}
-			if (err == 0) {
-				times.actime = fstats.st_atime;
-				times.modtime = fstats.st_mtime;
-				utime(cfile, &times);
-			}
+			imlib_save_image_with_error_return(cfile, &err);
+			if (err)
+				goto end;
+			times.actime = fstats.st_atime;
+			times.modtime = fstats.st_mtime;
+			utime(cfile, &times);
 		}
+end:
 		free(cfile);
 	}
 }
@@ -468,14 +470,14 @@ void tns_mark(tns_t *tns, int n, bool mark)
 	if (n >= 0 && n < *tns->cnt && tns->thumbs[n].im != NULL) {
 		win_t *win = tns->win;
 		thumb_t *t = &tns->thumbs[n];
-		unsigned long col = win->fullscreen ? win->black.pixel : win->bg.pixel;
+		unsigned long col = win->backgroundcolor.pixel;
 		int x = t->x + t->w, y = t->y + t->h;
 
 		win_draw_rect(win, x - 1, y + 1, 1, tns->bw, true, 1, col);
 		win_draw_rect(win, x + 1, y - 1, tns->bw, 1, true, 1, col);
 
 		if (mark)
-			col = win->fullscreen && win->light ? win->bg.pixel : win->fg.pixel;
+			col = win->foregroundcolor.pixel;
 
 		win_draw_rect(win, x, y, tns->bw + 2, tns->bw + 2, true, 1, col);
 
@@ -489,13 +491,8 @@ void tns_highlight(tns_t *tns, int n, bool hl)
 	if (n >= 0 && n < *tns->cnt && tns->thumbs[n].im != NULL) {
 		win_t *win = tns->win;
 		thumb_t *t = &tns->thumbs[n];
-		unsigned long col;
+		unsigned long col = hl ? win->foregroundcolor.pixel : win->backgroundcolor.pixel;
 		int oxy = (tns->bw + 1) / 2 + 1, owh = tns->bw + 2;
-
-		if (hl)
-			col = win->fullscreen && win->light ? win->bg.pixel : win->fg.pixel;
-		else
-			col = win->fullscreen ? win->black.pixel : win->bg.pixel;
 
 		win_draw_rect(win, t->x - oxy, t->y - oxy, t->w + owh, t->h + owh,
 		              false, tns->bw, col);
@@ -535,6 +532,7 @@ bool tns_move_selection(tns_t *tns, direction_t dir, int cnt)
 		if (!tns->dirty)
 			tns_highlight(tns, *tns->sel, true);
 	}
+	win_set_title(tns->win, tns->files[fileidx].path);
 	return *tns->sel != old;
 }
 

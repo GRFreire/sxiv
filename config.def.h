@@ -6,17 +6,10 @@ enum {
 	WIN_HEIGHT = 600
 };
 
-/* bar font:
- * (see fonts-conf(5) subsection "FONT NAMES" for valid values)
+/* colors and font are configured with 'background', 'foreground' and
+ * 'font' X resource properties.
+ * See X(7) section Resources and xrdb(1) for more information.
  */
-static const char * const BAR_FONT = "monospace:size=8";
-
-/* colors:
- * overwritten by 'background' and 'foreground' X resource properties.
- * (see X(7) section "COLOR NAMES" for valid values)
- */
-static const char * const BG_COLOR = "#ffffea";
-static const char * const FG_COLOR = "#555555";
 
 #endif
 #ifdef _IMAGE_CONFIG
@@ -50,6 +43,14 @@ static const bool ANTI_ALIAS = true;
  * toggled with 'A' key binding
  */
 static const bool ALPHA_LAYER = false;
+
+/* fallback height and width for svg documents.
+ * use these values in case svg document does not specify height and width.
+ */
+enum {
+	FB_SVG_HEIGHT = 512,
+	FB_SVG_WIDTH  = 512
+};
 
 #endif
 #ifdef _THUMBS_CONFIG
@@ -134,6 +135,7 @@ static const keymap_t keys[] = {
 	{ 0,            XK_equal,         i_set_zoom,           100 },
 	{ 0,            XK_w,             i_fit_to_win,         SCALE_DOWN },
 	{ 0,            XK_W,             i_fit_to_win,         SCALE_FIT },
+	{ 0,            XK_F,             i_fit_to_win,         SCALE_FILL },
 	{ 0,            XK_e,             i_fit_to_win,         SCALE_WIDTH },
 	{ 0,            XK_E,             i_fit_to_win,         SCALE_HEIGHT },
 	{ 0,            XK_less,          i_rotate,             DEGREE_270 },
