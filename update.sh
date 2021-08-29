@@ -10,7 +10,7 @@ copy_from_master() {
 }
 
 copydir_from_master() {
-    mkdir "$1"
+    mkdir -p "$1"
     FILES="$(git show master:"$1" | sed "s/tree master:$1//g" | sed '/^$/d')"
     for FILE in $FILES; do
         copy_from_master "$1/$FILE"
@@ -26,7 +26,6 @@ generate_manpage_html() {
 }
 
 generate_readme_html() {
-    mkdir README
     copy_from_master README.md
     copydir_from_master README
 
