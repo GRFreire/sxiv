@@ -1,0 +1,460 @@
+
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <title>sxiv</title>
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1">
+          <style>
+          body {
+  font: 400 16px/1.5 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: #111;
+  background-color: #fdfdfd;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-feature-settings: 'kern' 1;
+  -moz-font-feature-settings: 'kern' 1;
+  -o-font-feature-settings: 'kern' 1;
+  font-feature-settings: 'kern' 1;
+  font-kerning: normal;
+  padding: 30px;
+}
+
+@media only screen and (max-width: 600px) {
+  body {
+    padding: 5px;
+  }
+
+  main {
+    padding: 0px 20px 20px 20px !important;
+  }
+}
+
+main {
+  margin: 0px;
+  max-width: 900px;
+  border: 1px solid #e1e4e8;
+  padding: 10px 40px;
+  padding-bottom: 20px;
+  border-radius: 2px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+hr {
+  color: #bbb;
+  background-color: #bbb;
+  height: 1px;
+  flex: 0 1 auto;
+  margin: 1em 0;
+  padding: 0;
+  border: none;
+}
+
+/**
+ * Links
+ */
+a {
+  color: #0366d6;
+  text-decoration: none;
+}
+a:visited {
+  color: #0366d6;
+}
+a:hover {
+  color: #0366d6;
+  text-decoration: underline;
+}
+
+pre {
+  background-color: #f6f8fa;
+  border-radius: 3px;
+  font-size: 85%;
+  line-height: 1.45;
+  overflow: auto;
+  padding: 16px;
+}
+
+/**
+  * Code blocks
+  */
+
+code {
+  background-color: rgba(27, 31, 35, 0.05);
+  border-radius: 3px;
+  font-size: 85%;
+  margin: 0;
+  word-wrap: break-word;
+  padding: 0.2em 0.4em;
+  font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier,
+    monospace;
+}
+
+pre > code {
+  background-color: transparent;
+  border: 0;
+  display: inline;
+  line-height: inherit;
+  margin: 0;
+  overflow: visible;
+  padding: 0;
+  word-wrap: normal;
+  font-size: 100%;
+}
+
+/**
+ * Blockquotes
+ */
+blockquote {
+  margin-left: 30px;
+  margin-top: 0px;
+  margin-bottom: 16px;
+  border-left-width: 3px;
+  padding: 0 1em;
+  color: #828282;
+  border-left: 4px solid #e8e8e8;
+  padding-left: 15px;
+  font-size: 18px;
+  letter-spacing: -1px;
+  font-style: italic;
+}
+blockquote * {
+  font-style: normal !important;
+  letter-spacing: 0;
+  color: #6a737d !important;
+}
+
+/**
+ * Tables
+ */
+table {
+  border-spacing: 2px;
+  display: block;
+  font-size: 14px;
+  overflow: auto;
+  width: 100%;
+  margin-bottom: 16px;
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+td {
+  padding: 6px 13px;
+  border: 1px solid #dfe2e5;
+}
+
+th {
+  font-weight: 600;
+  padding: 6px 13px;
+  border: 1px solid #dfe2e5;
+}
+
+tr {
+  background-color: #fff;
+  border-top: 1px solid #c6cbd1;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f6f8fa;
+}
+
+/**
+ * Others
+ */
+
+img {
+  max-width: 100%;
+}
+
+p {
+  line-height: 24px;
+  font-weight: 400;
+  font-size: 16px;
+  color: #24292e;
+}
+
+ul {
+  margin-top: 0;
+}
+
+li {
+  color: #24292e;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+li + li {
+  margin-top: 0.25em;
+}
+
+* {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial,
+    sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  color: #24292e;
+}
+
+a:visited {
+  color: #0366d6;
+}
+
+h1,
+h2,
+h3 {
+  border-bottom: 1px solid #eaecef;
+  color: #111;
+  /* Darker */
+}
+
+          </style>
+        </head>
+        <body>
+          <main>
+      <p><img src="img/logo.png" alt="sxiv" title="sxiv" /></p>
+<p><strong>Simple X Image Viewer</strong></p>
+<p>This is my fork of sxiv. I created this because a lot of features I found useful were spread around multiple forks of the <a href="https://github.com/muennich/sxiv">main repo</a>. C is not my main language (but I can code a bit with it), thats why you will probably see that most of the additions are from 3rd parties. Contributions are more than welcome 🙃.</p>
+<h2 id="features">Features</h2>
+<p><em>Those with a <code>new</code> before the feature are additions compared to the main repo</em></p>
+<ul>
+<li>Basic image operations, e.g. zooming, panning, rotating</li>
+<li>Customizable key and mouse button mappings (in <em>config.h</em>)</li>
+<li>Thumbnail mode: grid of selectable previews of all images</li>
+<li>Ability to cache thumbnails for fast re-loading</li>
+<li>Basic support for multi-frame images</li>
+<li>Load all frames from GIF files and play GIF animations</li>
+<li>Display image information in status bar</li>
+<li><em>(new)</em> Load all images on parent directory</li>
+<li><em>(new)</em> Partial svg support (only on image mode for now)</li>
+<li><em>(new)</em> View images from URL</li>
+<li><em>(new)</em> Full webp support</li>
+<li><em>(new)</em> Start from file</li>
+<li><em>(new)</em> Configurable title</li>
+<li><em>(new)</em> Configurable bar colors</li>
+</ul>
+<h2 id="screenshots">Screenshots</h2>
+<p><strong>Image mode:</strong></p>
+<p><img src="img/image.png" alt="Image" title="Image mode" /></p>
+<p><strong>Thumbnail mode:</strong></p>
+<p><img src="img/thumb.png" alt="Thumb" title="Thumb mode" /></p>
+<h2 id="dependencies">Dependencies</h2>
+<p>sxiv requires the following software to be installed:</p>
+<ul>
+<li>Imlib2</li>
+<li>X11</li>
+<li>Xft</li>
+<li>freetype2</li>
+<li>fontconfig</li>
+<li>librsvg (optional, disabled with <code>HAVE_CAIRO_SVG=0</code>)</li>
+<li>cairo (optional, disabled with <code>HAVE_CAIRO_SVG=0</code>)</li>
+<li>giflib (optional, disabled with <code>HAVE_GIFLIB=0</code>)</li>
+<li>libexif (optional, disabled with <code>HAVE_LIBEXIF=0</code>)</li>
+<li>libwebp (optional, disabled with <code>HAVE_LIBWEBP=0</code>)</li>
+<li>curl (optional, disabled with <code>HAVE_LIBCURL=0</code>)</li>
+</ul>
+<p>Please make sure to install the corresponding development packages in case that<br />
+you want to build sxiv on a distribution with separate runtime and development<br />
+packages (e.g. *-dev on Debian).</p>
+<h2 id="building">Building</h2>
+<p>sxiv is built using the commands:</p>
+<pre><code>$ make
+# make install</code></pre>
+<p>Please note, that the latter one requires root privileges.<br />
+By default, sxiv is installed using the prefix "/usr/local", so the full path<br />
+of the executable will be "/usr/local/bin/sxiv".</p>
+<p>You can install sxiv into a directory of your choice by changing the second<br />
+command to:</p>
+<pre><code># make PREFIX="/your/dir" install</code></pre>
+<p>The build-time specific settings of sxiv can be found in the file <em>config.h</em>.<br />
+Please check and change them, so that they fit your needs.<br />
+If the file <em>config.h</em> does not already exist, then you have to create it with<br />
+the following command:</p>
+<pre><code>$ make config.h</code></pre>
+<h2 id="usage">Usage</h2>
+<p>Please see the <a href="http://GRFreire.github.io/sxiv/sxiv.1.html">man page</a> for<br />
+information on how to use sxiv.</p>
+<h2 id="configuring">Configuring</h2>
+<pre><code class="man language-man">The following X resources are supported:
+
+background
+      Color of the window background
+
+foreground
+      Color of the window foreground
+
+bar    Color of the bar background
+
+text   Color of the bar foreground
+
+font   Name of Xft bar font
+
+titlePrefix
+      Any string literal to be used as the window title prefix.
+
+titleSuffix
+      The format of the window title suffix.
+
+          Value  Format
+          0      Basename of file
+          1      Basename of directory
+          2      Full path to file
+          3      Full path to directory
+          4      Empty string
+
+Please see xrdb(1) on how to change them.</code></pre>
+<h2 id="download--changelog">Download &amp; Changelog</h2>
+<p>You can <a href="https://github.com/GRFreire/sxiv">browse</a> the source code repository<br />
+on GitHub or get a copy using git with the following command:</p>
+<pre><code>git clone https://github.com/GRFreire/sxiv.git</code></pre>
+<p><strong>Stable releases</strong></p>
+<p><strong><a href="https://github.com/GRFreire/sxiv/archive/v26.tar.gz">v26</a></strong><br />
+<em>(January 16, 2020)</em></p>
+<ul>
+<li>Maintenance release</li>
+</ul>
+<p><strong><a href="https://github.com/GRFreire/sxiv/archive/v25.tar.gz">v25</a></strong><br />
+<em>(January 26, 2019)</em></p>
+<ul>
+<li>Support font fallback for missing glyphs</li>
+<li>Fix busy loop when built without inotify</li>
+<li>Use background/foreground colors from X resource database</li>
+</ul>
+<p><strong><a href="https://github.com/GRFreire/sxiv/archive/v24.tar.gz">v24</a></strong><br />
+<em>(October 27, 2017)</em></p>
+<ul>
+<li>Automatically reload the current image whenever it changes</li>
+<li>Support embedding into other X windows with -e (e.g. tabbed)</li>
+<li>New option -p prevents sxiv from creating cache and temporary files</li>
+<li>Simpler mouse mappings, the most basic features are accessible with the<br />
+mouse only (navigate, zoom, pan)</li>
+</ul>
+<p><strong><a href="https://github.com/GRFreire/sxiv/archive/v1.3.2.tar.gz">v1.3.2</a></strong><br />
+<em>(December 20, 2015)</em></p>
+<ul>
+<li>external key handler gets file paths on stdin, not as arguments</li>
+<li>Cache out-of-view thumbnails in the background</li>
+<li>Apply gamma correction to thumbnails</li>
+</ul>
+<p><strong><a href="https://github.com/GRFreire/sxiv/archive/v1.3.1.tar.gz">v1.3.1</a></strong><br />
+<em>(November 16, 2014)</em></p>
+<ul>
+<li>Fixed build error, caused by delayed config.h creation</li>
+<li>Fixed segfault when run with -c</li>
+</ul>
+<p><strong><a href="https://github.com/GRFreire/sxiv/archive/v1.3.tar.gz">v1.3</a></strong><br />
+<em>(October 24, 2014)</em></p>
+<ul>
+<li>Extract thumbnails from EXIF tags (requires libexif)</li>
+<li>Zoomable thumbnails, supported sizes defined in config.h</li>
+<li>Fixed build error with giflib version &gt;= 5.1.0</li>
+</ul>
+<p><strong><a href="https://github.com/GRFreire/sxiv/archive/v1.2.tar.gz">v1.2</a></strong><br />
+<em>(April 24, 2014)</em></p>
+<ul>
+<li>Added external key handler, called on keys prefixed with <code>Ctrl-x</code></li>
+<li>New keybinding <code>{</code>/<code>}</code> to change gamma (by András Mohari)</li>
+<li>Support for slideshows, enabled with <code>-S</code> option &amp; toggled with <code>s</code></li>
+<li>Added application icon (created by 0ion9)</li>
+<li>Checkerboard background for alpha layer</li>
+<li>Option <code>-o</code> only prints files marked with <code>m</code> key</li>
+<li>Fixed rotation/flipping of multi-frame images (gifs)</li>
+</ul>
+<p><strong><a href="https://github.com/GRFreire/sxiv/archive/v1.1.1.tar.gz">v1.1.1</a></strong><br />
+<em>(June 2, 2013)</em></p>
+<ul>
+<li>Various bug fixes</li>
+</ul>
+<p><strong><a href="https://github.com/GRFreire/sxiv/archive/v1.1.tar.gz">v1.1</a></strong><br />
+<em>(March 30, 2013)</em></p>
+<ul>
+<li>Added status bar on bottom of window with customizable content</li>
+<li>New keyboard shortcuts <code>\</code>/<code>|</code>: flip image vertically/horizontally</li>
+<li>New keyboard shortcut <code>Ctrl-6</code>: go to last/alternate image</li>
+<li>Added own EXIF orientation handling, removed dependency on libexif</li>
+<li>Fixed various bugs</li>
+</ul>
+<p><strong><a href="https://github.com/GRFreire/sxiv/archive/v1.0.tar.gz">v1.0</a></strong><br />
+<em>(October 31, 2011)</em></p>
+<ul>
+<li>Support for multi-frame images &amp; GIF animations</li>
+<li>POSIX compliant (IEEE Std 1003.1-2001)</li>
+</ul>
+<p><strong><a href="https://github.com/GRFreire/sxiv/archive/v0.9.tar.gz">v0.9</a></strong><br />
+<em>(August 17, 2011)</em></p>
+<ul>
+<li>Made key and mouse mappings fully configurable in config.h</li>
+<li>Complete code refactoring</li>
+</ul>
+<p><strong><a href="https://github.com/GRFreire/sxiv/archive/v0.8.2.tar.gz">v0.8.2</a></strong><br />
+<em>(June 29, 2011)</em></p>
+<ul>
+<li>POSIX-compliant Makefile; compiles under NetBSD</li>
+</ul>
+<p><strong><a href="https://github.com/GRFreire/sxiv/archive/v0.8.1.tar.gz">v0.8.1</a></strong><br />
+<em>(May 8, 2011)</em></p>
+<ul>
+<li>Fixed fullscreen under window managers, which are not fully EWMH-compliant</li>
+</ul>
+<p><strong><a href="https://github.com/GRFreire/sxiv/archive/v0.8.tar.gz">v0.8</a></strong><br />
+<em>(April 18, 2011)</em></p>
+<ul>
+<li>Support for thumbnail caching</li>
+<li>Ability to run external commands (e.g. jpegtran, convert) on current image</li>
+</ul>
+<p><strong><a href="https://github.com/GRFreire/sxiv/archive/v0.7.tar.gz">v0.7</a></strong><br />
+<em>(February 26, 2011)</em></p>
+<ul>
+<li>Sort directory entries when using <code>-r</code> command line option</li>
+<li>Hide cursor in image mode</li>
+<li>Full functional thumbnail mode, use Return key to switch between image and<br />
+thumbnail mode</li>
+</ul>
+<p><strong><a href="https://github.com/GRFreire/sxiv/archive/v0.6.tar.gz">v0.6</a></strong><br />
+<em>(February 16, 2011)</em></p>
+<ul>
+<li>Bug fix: Correctly display filenames with umlauts in window title</li>
+<li>Basic support of thumbnails</li>
+</ul>
+<p><strong><a href="https://github.com/GRFreire/sxiv/archive/v0.5.tar.gz">v0.5</a></strong><br />
+<em>(February 6, 2011)</em></p>
+<ul>
+<li>New command line option: <code>-r</code>: open all images in given directories</li>
+<li>New key shortcuts: <code>w</code>: resize image to fit into window; <code>W</code>: resize window<br />
+to fit to image</li>
+</ul>
+<p><strong><a href="https://github.com/GRFreire/sxiv/archive/v0.4.tar.gz">v0.4</a></strong><br />
+<em>(February 1, 2011)</em></p>
+<ul>
+<li>New command line option: <code>-F</code>, <code>-g</code>: use fixed window dimensions and apply<br />
+a given window geometry</li>
+<li>New key shortcut: <code>r</code>: reload current image</li>
+</ul>
+<p><strong><a href="https://github.com/GRFreire/sxiv/archive/v0.3.1.tar.gz">v0.3.1</a></strong><br />
+<em>(January 30, 2011)</em></p>
+<ul>
+<li>Bug fix: Do not set setuid bit on executable when using <code>make install</code></li>
+<li>Pan image with mouse while pressing middle mouse button</li>
+</ul>
+<p><strong><a href="https://github.com/GRFreire/sxiv/archive/v0.3.tar.gz">v0.3</a></strong><br />
+<em>(January 29, 2011)</em></p>
+<ul>
+<li>New command line options: <code>-d</code>, <code>-f</code>, <code>-p</code>, <code>-s</code>, <code>-v</code>, <code>-w</code>, <code>-Z</code>, <code>-z</code></li>
+<li>More mouse mappings: Go to next/previous image with left/right click,<br />
+scroll image with mouse wheel (horizontally if Shift key is pressed),<br />
+zoom image with mouse wheel if Ctrl key is pressed</li>
+</ul>
+<p><strong><a href="https://github.com/GRFreire/sxiv/archive/v0.2.tar.gz">v0.2</a></strong><br />
+<em>(January 23, 2011)</em></p>
+<ul>
+<li>Bug fix: Handle window resizes correctly</li>
+<li>New keyboard shortcuts: <code>g</code>/<code>G</code>: go to first/last image; <code>[</code>/<code>]</code>: go 10<br />
+images back/forward</li>
+<li>Support for mouse wheel zooming (by Dave Reisner)</li>
+<li>Added fullscreen mode</li>
+</ul>
+<p><strong><a href="https://github.com/GRFreire/sxiv/archive/v0.1.tar.gz">v0.1</a></strong><br />
+<em>(January 21, 2011)</em></p>
+<ul>
+<li>Initial release</li>
+</ul>
+          </main>
+        </body>
+      </html>
