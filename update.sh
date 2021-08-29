@@ -33,6 +33,8 @@ generate_readme_html() {
     rm img/*
     mv README/* img
 
+    cat header.html README.md > README.md.tmp && mv README.md.tmp README.md
+
     npx github-readme-to-html README.md sxiv
     mv dist/index.html .
     sed -i 's/README\//img\//g' index.html
