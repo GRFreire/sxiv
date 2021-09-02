@@ -135,7 +135,7 @@ on GitHub or get a copy using git with the following command:
 
 Known Issues
 ------------
-- Currently SVG support is unstable (more information on [issues/10](issues/10)), therefore it is disabled by default. You can enable it with ``HAVE_CAIRO_SVG=1`` when building.
+- Currently SVG support is unstable (more information on [issues/10](https://github.com/GRFreire/sxiv/issues/10)), therefore it is disabled by default. You can enable it with ``HAVE_CAIRO_SVG=1`` when building.
 
 
 Changelog & Stable releases
