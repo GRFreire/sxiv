@@ -226,7 +226,7 @@ h3 {
 <li>Load all frames from GIF files and play GIF animations</li>
 <li>Display image information in status bar</li>
 <li><em>(new)</em> Load all images on parent directory</li>
-<li><em>(new)</em> Partial svg support (only on image mode for now)</li>
+<li><em>(new)</em> Partial svg support (see <a href="#known-issues">known issues</a> for more information)</li>
 <li><em>(new)</em> View images from URL</li>
 <li><em>(new)</em> Full webp support</li>
 <li><em>(new)</em> Start from file</li>
@@ -307,6 +307,10 @@ Please see xrdb(1) on how to change them.</code></pre>
 <p>You can <a href="https://github.com/GRFreire/sxiv">browse</a> the source code repository<br />
 on GitHub or get a copy using git with the following command:</p>
 <pre><code>git clone https://github.com/GRFreire/sxiv.git</code></pre>
+<h2 id="known-issues">Known Issues</h2>
+<ul>
+<li>Currently SVG support is unstable (more information on <a href="issues/10">issues/10</a>), therefore it is disabled by default. You can enable it with <code>HAVE_CAIRO_SVG=1</code> when building.</li>
+</ul>
 <h2 id="changelog--stable-releases">Changelog &amp; Stable releases</h2>
 <p>You can see changelog and stable releases <a href="changelog.md">here</a></p>
           </main>
