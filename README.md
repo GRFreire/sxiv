@@ -2,6 +2,8 @@
 
 **Simple X Image Viewer**
 
+> There is a new project called [nsxiv](https://github.com/nsxiv/nsxiv) which is a community driven successor of sxiv. Check it out!
+
 This is my fork of sxiv. I created this because a lot of features I found useful were spread around multiple forks of the [main repo](https://github.com/muennich/sxiv). C is not my main language (but I can code a bit with it), thats why you will probably see that most of the additions are from 3rd parties. Contributions are more than welcome 🙃.
 
 
